@@ -1,0 +1,9 @@
+[{
+  "op": "add",
+  "path": "/items/patman:tsukasa",
+  "value": {
+    "label": "^#bc77dd;malware^reset;",
+    "icon": "/pat/tsukasa/icon.png",
+    "action": [ "pane", "/pat/tsukasa/tsukasa.config" ]
+  }
+}]

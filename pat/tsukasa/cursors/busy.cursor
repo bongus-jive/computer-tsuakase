@@ -1,0 +1,10 @@
+{
+  "offset": [ 8, 8 ],
+  "animation": {
+    "frames": "/pat/tsukasa/cursors/busy.png:<index>",
+    "frameNumber": 17,
+    "animationCycle": 1,
+    "centered": false,
+    "mode": "loopforever"
+  }
+}

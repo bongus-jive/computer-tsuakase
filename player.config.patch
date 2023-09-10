@@ -1,0 +1,5 @@
+[{
+  "op": "add",
+  "path": "/genericScriptContexts/pat_tsukasa",
+  "value": "/pat/tsukasa/tsukasa_player.lua"
+}]
