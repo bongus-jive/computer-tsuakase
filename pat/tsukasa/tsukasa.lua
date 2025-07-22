@@ -5,17 +5,27 @@ local coverFade = nil
 local workingTicks = 0
 local resetWorkingAt = 0
 local mouseInWindow = false
-local canvasMousePos
 
 function init()
   cursors = config.getParameter("cursors", {})
   coverImage = config.getParameter("coverImage", "/assetmissing.png")
+
+  animations = config.getParameter("animations", {})
   
   restore()
   initCanvas()
 end
 
 function update(dt)
+  for name, anim in pairs(animations) do
+    anim.timer = ((anim.timer or 0) + dt) % anim.duration
+    local frame = math.floor((anim.timer / anim.duration) * anim.frames)
+    if frame ~= anim.current then
+      anim.current = frame
+      widget.setImage(name, anim.image:gsub("<frame>", frame))
+    end
+  end
+
   widget.setVisible("cardNumberFocus", widget.hasFocus("cardNumber"))
   widget.setVisible("expiryDateFocus", widget.hasFocus("expiryDate"))
   widget.setVisible("securityCodeFocus", widget.hasFocus("securityCode"))
@@ -165,7 +175,8 @@ function dismissed()
     textboxes = {},
     visible = {},
     validBoxes = validBoxes,
-    coverFade = coverFade
+    coverFade = coverFade,
+    animations = {}
   }
   cfg._RESTORE = data
 
@@ -183,6 +194,13 @@ function dismissed()
     cfg.canvasButtons[k].disabled = v.disabled
     cfg.canvasButtons[k].visible = v.visible
     cfg.canvasButtons[k].images = v.images
+  end
+
+  for name, anim in pairs(animations) do
+    data.animations[name] = {
+      timer = anim.timer,
+      current = anim.current
+    }
   end
 
   player.interact("ScriptPane", cfg)
@@ -211,6 +229,15 @@ function restore()
 
   if data.focus then
     widget.focus(data.focus)
+  end
+
+  for name, anim in pairs(animations) do
+    local animData = data.animations[name] or {}
+    anim.timer = animData.timer
+    anim.current = animData.current
+    if anim.current then
+      widget.setImage(name, anim.image:gsub("<frame>", anim.current))
+    end
   end
 end
 
