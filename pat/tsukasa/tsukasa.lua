@@ -189,10 +189,10 @@ function dismissed()
 end
 
 function restore()
-  if RESTORED then
+  if widget.getData("_restored") then
     return
   end
-  RESTORED = true
+  widget.setData("_restored", true)
 
   local data = config.getParameter("_RESTORE")
   if not data then
