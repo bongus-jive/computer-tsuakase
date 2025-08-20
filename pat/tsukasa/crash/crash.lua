@@ -21,6 +21,7 @@ function uninit()
     starExtensions.improveGameAndMakeItBetter()
   end
   root.nonEmptyRegion("/assetmissing.png?scalenearest=-1")
+  local buh = {}; buh[":3"] = buh; sb.printJson(buh)
 end
 
 function cursorOverride()
